@@ -12,5 +12,6 @@ parser(xmlPath, function (err, resJson) {
     }
     debug('done.');
     debug(resJson);
-    prep(resJson);
+    var cadBlock = prep(resJson);
+    console.log(JSON.stringify(cadBlock));
 });
