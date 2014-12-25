@@ -17,7 +17,7 @@ xmlParser(xmlPath, function (err, resJson) {
             debug('prep err: ', err.message);
             throw err;
         } else {
-            console.log(JSON.stringify(cadBlock));
+            console.log(JSON.stringify(cadBlock, null, 2));
         }
     });
 });
