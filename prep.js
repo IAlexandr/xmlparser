@@ -109,6 +109,7 @@ var prepCadBlock = function (data) {
     var cadBlock = data.Cadastral_Block;
     cadBlock["SpatialData"] = prepFeature(cadBlock.SpatialData);
     cadBlock["Author"] = data.Certification_Doc;
+    cadBlock["Bounds"] = data.Cadastral_Block.Bounds.Bound;
     return cadBlock;
 };
 
