@@ -1,0 +1,31 @@
+{
+  "name": "xmlparser",
+  "version": "0.0.1",
+  "description": "кад. кв.",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/IAlexandr/xmlparser.git"
+  },
+  "keywords": [
+    "xml"
+  ],
+  "author": "ai",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/IAlexandr/xmlparser/issues"
+  },
+  "homepage": "https://github.com/IAlexandr/xmlparser",
+  "dependencies": {
+    "concat-stream": "^1.4.7",
+    "debug": "^2.1.0",
+    "express": "^4.10.6",
+    "sax": "^0.6.1",
+    "underscore": "^1.7.0",
+    "unzip": "^0.1.11",
+    "xml2js": "^0.4.4"
+  }
+}
