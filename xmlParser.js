@@ -4,16 +4,14 @@ var parser = new xml2js.Parser();
 var fs = require('fs');
 
 
-module.exports = function (xmlPath, callback) {
+module.exports = function (xmlStr, callback) {
     debug('xmlParser: started.');
-    fs.readFile(xmlPath, function(err, data) {
-        parser.parseString(data, function (err, result) {
-            if (err) {
-                debug('xmlParser err: ', err.message);
-                return callback(err);
-            }
-            debug('xmlParser: done.');
-            return callback(null, result);
-        });
+    parser.parseString(xmlStr, function (err, result) {
+        if (err) {
+            debug('xmlParser err: ', err.message);
+            return callback(err);
+        }
+        debug('xmlParser: done.');
+        return callback(null, result);
     });
 };
