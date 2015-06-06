@@ -1,16 +1,19 @@
 var fs = require('fs');
 
-var pathToZip = __dirname + '/temp/response.zip';
+var pathToZip = __dirname + '/temp/response2.zip';
 
 var RosreestrXmlParser = require('./app');
 
 var readStream = fs.createReadStream(pathToZip);
 
 RosreestrXmlParser.parseZipStream(readStream, function (err, rrJson) {
+    if (err) {
+        throw err;
+    }
+    fs.writeFile(__dirname + "/temp/result2.json", JSON.stringify(rrJson, null, 2), function (err) {
         if (err) {
-            throw err;
+            return console.log(err);
         }
-        return console.log(JSON.stringify(rrJson, null, 2));
+        console.log("The file was saved!");
+    });
 });
-
-

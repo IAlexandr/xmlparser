@@ -3,6 +3,7 @@ var unzip = require('unzip');
 var xmlParser = require("./xmlParser");
 var prep = require('./prep');
 var concat = require('concat-stream');
+var toGeoJson = require('./to-geojson');
 
 module.exports.parseZipStream = function (readStream, callback) {
     debug("parse zip stream..");
@@ -28,6 +29,7 @@ module.exports.parseZipStream = function (readStream, callback) {
                                     debug('prep err: ', err.message);
                                     callback(err);
                                 } else {
+                                    toGeoJson(cadBlock.Parcels);
                                     callback(null, cadBlock);
                                 }
                             });

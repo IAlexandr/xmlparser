@@ -1,8 +1,6 @@
 var debug = require('debug')('xmlParser');
 xml2js = require('xml2js');
 var parser = new xml2js.Parser();
-var fs = require('fs');
-
 
 module.exports = function (xmlStr, callback) {
     debug('xmlParser: started.');
