@@ -39,5 +39,8 @@ module.exports.parseZipStream = function (readStream, callback) {
                     entry.pipe(concatStream);
                 }
             }
+        })
+        .on('error', function (err) {
+            return callback(err);
         });
 };
