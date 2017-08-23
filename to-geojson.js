@@ -8,27 +8,60 @@ module.exports = function (data) {
             var fe = feature.properties.EntitySpatial;
             if (fe) {
                 if (fe.SpatialElement) {
-                    var arr0 = [];
-                    var arr1 = [];
+
                     if (Array.isArray(fe.SpatialElement)) {
-                        arr0 = fe.SpatialElement[0].SpelementUnit;
-                        arr1 = fe.SpatialElement[1].SpelementUnit;
-                        // todo скорее всего [0] полигоны участков без дырок, [1] дырки в полигоне
+                        //массив
+                        fe.SpatialElement.forEach((item)=>{
+                            
+                            let arr=item.SpelementUnit
+                            let arrresult = [];
+                            if(arr.TypeUnit==='Окружность'){
+                                const l=16;//количество точек в окружности
+                                for(let i=0;i!=l+1;i++){
+                                    arrresult.push([parseFloat(arr.Ordinate.Y)+Math.cos((i/l)*2 * Math.PI)*arr.R, parseFloat(arr.Ordinate.X)+Math.sin((i/l)*2 * Math.PI)*arr.R]);
+                                }
+                            }else{
+                                let len=arr.length;
+                                arr.forEach(function (objWithCoord) {
+                                    arrresult.push([parseFloat(objWithCoord.Ordinate.Y), parseFloat(objWithCoord.Ordinate.X)]);
+                                });
+
+                                //проверяем на неполигон
+                                if(arr[0].SuNmb!==arr[arr.length-1].SuNmb){
+                                    feature.geometry.type="MultiLineString";
+                                }
+
+                            }
+                            feature.geometry.coordinates.push(arrresult);
+                            
+                        })
+
                     } else {
-                        arr0 = fe.SpatialElement.SpelementUnit;
+                        
+                        // не массив
+                        let arr = fe.SpatialElement.SpelementUnit;
+                        let arrresult = [];
+                        if(arr.TypeUnit==='Окружность'){
+                            
+                            const l=16;//количество точек в окружности
+                            for(let i=0;i!=l+1;i++){
+                                arrresult.push([parseFloat(arr.Ordinate.Y)+Math.cos((i/l)*2 * Math.PI)*arr.R, parseFloat(arr.Ordinate.X)+Math.sin((i/l)*2 * Math.PI)*arr.R]);
+                            }
+                            
+                            
+                        }else{
+                            arr.forEach(function (objWithCoord) {
+                                arrresult.push([parseFloat(objWithCoord.Ordinate.Y), parseFloat(objWithCoord.Ordinate.X)]);
+                            });
+                                    //проверяем на неполигон
+                                    if(arr[0].SuNmb!==arr[arr.length-1].SuNmb){
+                                        feature.geometry.type="MultiLineString";
+                                    }
+                        }
+                        feature.geometry.coordinates.push(arrresult);
+                        
                     }
-                    var arr0result = [];
-                    var arr1result = [];
-                    arr0.forEach(function (objWithCoord) {
-                        arr0result.push([parseFloat(objWithCoord.Ordinate.Y), parseFloat(objWithCoord.Ordinate.X)]);
-                    });
-                    feature.geometry.coordinates.push(arr0result);
-                    if (arr1.length > 0) {
-                        arr1.forEach(function (objWithCoord) {
-                            arr1result.push([parseFloat(objWithCoord.Ordinate.Y), parseFloat(objWithCoord.Ordinate.X)]);
-                        });
-                        feature.geometry.coordinates.push(arr1result);
-                    }
+
                 }
                 delete feature.properties['EntitySpatial'];
             }

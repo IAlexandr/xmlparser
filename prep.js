@@ -1,5 +1,5 @@
 var _ = require('underscore');
-var fcFields = ['Parcels', 'Zones', 'Boundaries'];
+var fcFields = ['Parcels', 'ObjectsRealty' , 'Zones', 'Boundaries','ObjectsRealty'];
 var prefixMatch = new RegExp(/(?!xmlns)^.*:/);
 
 var stripPrefix = function(str) {

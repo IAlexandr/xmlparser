@@ -4,6 +4,8 @@ var xmlParser = require("./xmlParser");
 var prep = require('./prep');
 var concat = require('concat-stream');
 var toGeoJson = require('./to-geojson');
+var prepObjectsRealty = require('./prepObjectRealty');
+var fs = require('fs');
 
 module.exports.parseZipStream = function (readStream, callback) {
     debug("parse zip stream..");
@@ -29,7 +31,9 @@ module.exports.parseZipStream = function (readStream, callback) {
                                     debug('prep err: ', err.message);
                                     callback(err);
                                 } else {
+                                    cadBlock.ObjectsRealty=prepObjectsRealty(cadBlock.ObjectsRealty);
                                     toGeoJson(cadBlock.Parcels);
+                                    toGeoJson(cadBlock.ObjectsRealty);
                                     callback(null, cadBlock);
                                 }
                             });
